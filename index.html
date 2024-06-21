@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-do-list</title>
+    <!-- Link external styling -->
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body>
+    <div class="add-task-wrapper">
+      <div class="title">
+        <h1>To-do List</h1>
+        <div class="mode-icon" onclick="switchMode()">
+          <img
+            src="./assets/icons/light_mode_icon.png"
+            alt="mode_icon"
+            width="30px"
+            height="30px"
+            id="mode-icon"
+          />
+        </div>
+      </div>
+      <form id="add-task-form">
+        <input
+          type="text"
+          name="input"
+          placeholder="Write Task Here"
+          autocomplete="off"
+        />
+        <div style="display: inline">
+          <label for="date">Task due date: </label>
+          <input type="date" name="date" id="date" />
+        </div>
+        <button type="submit" name="submitBtn">Add Task</button>
+      </form>
+    </div>
+
+    <main>
+      <div class="tasks-wrapper">
+        <div class="no-task-container">
+          <img
+            src="./assets/images/No-tasks.png"
+            alt=""
+            width="100px"
+            id="no-tasks"
+          />
+          <h2>No tasks has been added</h2>
+        </div>
+      </div>
+      <button id="delete-all" onclick="deleteAll()">Delete all Tasks</button>
+    </main>
+  </body>
+
+  <!-- Javascript -->
+  <script src="./assets/script.js"></script>
+</html>
