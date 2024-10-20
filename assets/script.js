@@ -88,6 +88,17 @@ function checkTask(id, value) {
 function deleteTask(id) {
   allTasks = allTasks.filter(task => task.id !== id);
   localStorage.setItem("allTasks", JSON.stringify(allTasks));
+  document.querySelector('.tasks-wrapper').innerHTML = `
+    <div class="no-task-container">
+          <img
+            src="./assets/images/No-tasks.png"
+            alt=""
+            width="100px"
+            id="no-tasks"
+          />
+          <h2>No tasks has been added</h2>
+        </div>
+  `
   renderTasks();
 }
 
