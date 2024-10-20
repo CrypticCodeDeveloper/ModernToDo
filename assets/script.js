@@ -28,6 +28,7 @@ function renderTasks() {
   }
 
   // Render tasks
+  const tasksWrapper = document.querySelector(".tasks-wrapper");
   if (allTasks.length > 0) {
     const html = allTasks.map((task) => {
       const status = task.isDone ? "checked" : "";
@@ -46,7 +47,7 @@ function renderTasks() {
                 name="checkbox" 
                 ${status} 
                 data-taskId="${task.id}" 
-                onClick="setTimeout(() => { checkTask(Number(this.dataset.taskid), this.checked) }, 210);" />
+                onClick="setTimeout(() => { checkTask(Number(this.dataset.taskId), this.checked) }, 210);" />
               <label for="${task.id}" class="check">
                 <svg width="18px" height="18px" viewBox="0 0 18 18">
                   <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
@@ -69,8 +70,16 @@ function renderTasks() {
       `;
     });
 
-    // Push the html to the DOM
-    document.querySelector(".tasks-wrapper").innerHTML = html.join("");
+    // Push the HTML to the DOM
+    tasksWrapper.innerHTML = html.join("");
+  } else {
+    // Show no tasks message
+    tasksWrapper.innerHTML = `
+      <div class="no-task-container">
+        <img src="./assets/images/No-tasks.png" alt="" width="100px" id="no-tasks" />
+        <h2>No tasks have been added</h2>
+      </div>
+    `;
   }
 }
 
@@ -86,26 +95,25 @@ function checkTask(id, value) {
 
 // Delete task
 function deleteTask(id) {
+  // Filter out the task with the specified id
   allTasks = allTasks.filter(task => task.id !== id);
+  
+  // Store the updated tasks in local storage
   localStorage.setItem("allTasks", JSON.stringify(allTasks));
-  document.querySelector('.tasks-wrapper').innerHTML = `
-    <div class="no-task-container">
-          <img
-            src="./assets/images/No-tasks.png"
-            alt=""
-            width="100px"
-            id="no-tasks"
-          />
-          <h2>No tasks has been added</h2>
-        </div>
-  `
+  
+  // Render tasks again
   renderTasks();
 }
 
 // Delete all tasks
 function deleteAll() {
+  // Clear all tasks
   allTasks = [];
+  
+  // Update local storage
   localStorage.setItem("allTasks", JSON.stringify(allTasks));
+  
+  // Render tasks to reflect changes
   renderTasks();
 }
 
@@ -113,7 +121,7 @@ function deleteAll() {
 todoForm.submitBtn.addEventListener("click", (e) => {
   e.preventDefault();
 
-  let taskdue = document.getElementById("date").value === ""
+  const taskdue = dateInput.value === ""
     ? `Added on ${new Date().toLocaleDateString()}`
     : `Added on ${new Date().toLocaleDateString()} and due on ${dateInput.value}`;
 
